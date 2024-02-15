@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="venkata Ramulu">
+    <link rel="icon" href="../static/cyberlogo.jpg" type="image/x-icon">
+
+    <title>CyberTech Protector.IP/Domain Analysis.Com</title>
+    <style>
+      body{
+            padding:10px 15%;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 20px;
+        }
+    
+        th, td {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+    
+        th {
+          background-color: #f2f2f2;
+        }
+    
+        .malware {
+          color: red !important;
+          font-weight: bold;
+        }
+    
+        .clean {
+          color: green !important;
+          font-weight: bold;
+        }
+    
+        .undetected {
+          color: grey !important;
+          font-weight: bold;
+        }
+         /* Add your CSS styles for reload animation here */
+         #reload-container {
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            right: 0%;
+            width:100%;
+            height:109vh;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            background-color:rgb(32, 26, 26,0.7);
+            padding-top:17%;
+        }
+        #reload-icon{
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            -ms-flex-align: center;
+            margin-left:50%;
+            transform: translateX(-50%);
+        }
+        #reload-icon::after{
+            content: '';
+            width:150px;
+            height: 150px;
+            border:8px solid rgba(0,0,0,0.6);
+            opacity: 0.5;
+            border-radius: 50%;
+            border-bottom-color:rgb(255, 0, 115);
+            animation: roundloader 1s linear infinite;
+        }
+        @keyframes roundloader {
+            from{
+                transform:rotate(0deg);
+                transform: all 0.2s linear;
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+      </style>
+      <script>
+        window.onload = function () {
+            // JavaScript function to check if 'data' variable is empty
+            var responseData = {{ data | tojson | safe }};
+    
+    
+            if (responseData && responseData.attributes) {
+                var results = responseData.attributes.results;
+                var resultsKeysLength = Object.keys(results).length;
+                console.log("Number of results (Object):", resultsKeysLength);
+    
+                if (resultsKeysLength > 0) {
+                    // Your code for handling the results
+                    document.getElementById('reload-container').style.display = 'none';
+                    console.log("Handling results...");
+                    console.log(responseData);
+                } 
+                else {
+                // Your code for handling the absence of results
+                    console.log("No results available");
+                    document.getElementById('reload-container').style.display = 'block';
+                     // After two minutes, trigger page reload
+                    setTimeout(function () {
+                        location.reload();
+                    }, 60000); // 120000 milliseconds = 2 minutes
+                }
+            } 
+        };
+    </script>
+</head>
+<body>
+    <h2>Analysis Result</h2>
+    <div class="chart">
+      <div class="chart-box">
+
+      </div>
+      <div class="id-result">
+          <p><b>File Id:</b>{{data.id}}</p>
+          {% if data.attributes.total_votes.malicious <= 0 %}
+          <h2 style='color:green'>No security vendors and no sandboxes flagged this file as malicious</h2>
+          {% else %}
+          <p style="color:red">This file is attacked by malicious </p>
+          {% endif %}
+      </div>
+  </div>
+
+    <table>
+        <tr>
+          <th>Engine Name</th>
+          <th>Result</th>
+        </tr>
+        {% set sorted_results = data.attributes.last_analysis_results.items()|sort(attribute='1.result', reverse=true) %}
+        {% for engine_name, details in sorted_results %}
+          <tr class="{{ details.result.lower() }}"> <td>{{ engine_name }}</td>
+            <td>{{ details.result }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+
+    <h3>Analysis Statistics:</h3>
+    <p>Harmless: {{ data.attributes.last_analysis_stats.harmless }}</p>
+    <p>Malicious: {{ data.attributes.last_analysis_stats.malicious }}</p>
+    <p>Suspicious: {{ data.attributes.last_analysis_stats.suspicious }}</p>
+    <p>Undetected: {{ data.attributes.last_analysis_stats.undetected }}</p>
+    <p>Timeout: {{ data.attributes.last_analysis_stats.timeout }}</p>
+    
+    <h3>IP Address Details:</h3>
+    <p><strong>IP Address:</strong> {{data.id }}</p>
+    <p><strong>ASN:</strong> {{ data.attributes.asn }}</p>
+    <p><strong>Country:</strong> {{ data.attributes.country }}</p>
+    <p><strong>Continent:</strong> {{ data.attributes.continent }}</p>
+    <p><strong>Network:</strong> {{ data.attributes.network }}</p>
+   
+    <div class="whois-container">
+      <div class="whois-column">
+          <h3>WHOIS:</h3>
+          <!-- Check if 'whois' attribute exists in data.attributes -->
+          {% set whois_lines = (data.attributes.whois | default('N/A')).split('\n') %}
+
+          {% for line in whois_lines %}
+              <p>{{ line }}</p>
+          {% endfor %}
+      </div>
+    </div>
+  
+    <p class="{{ data.attributes.reputation }}">
+        <strong>Reputation:</strong> {{ data.attributes.reputation }}
+    </p>
+    <p><strong>AS Owner:</strong> {{ data.attributes.as_owner }}</p>
+</body>
+</html>
+https://github.com/venkataramgithub/CyberTech-Protector.git

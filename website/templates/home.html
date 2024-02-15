@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="venkata Ramulu">
+    <link rel="icon" href="../static/cyberlogo.jpg" type="image/x-icon">
+
+    <title>CyberTech Protector.Home.Com</title>
+    <link rel="stylesheet" href="../static/home.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <section>
+        <div class="header">
+            <h2>CyberTech Protector</h2>
+            <p> we meticulously analyze suspicious files, domains, IPs, and URLs to swiftly detect malware and potential breaches.</p>
+
+        </div>
+        <div class="links">
+            <p id="file-link">File</p>
+            <p id="url-link">Url</p>
+            <p id="search-link">IP-Search</p>
+        </div>
+        <div class="file-form">
+            <form method="post" enctype="multipart/form-data" action="/File Analysis">
+                <div class="form-group">
+                    <input type="file" name="file" id="file">
+                </div>
+                <button>Submit</button>
+            </form>
+        </div>
+        <div class="url-form">
+            <form method="post" action="/Url Analysis">
+                <input type="text" name="url" placeholder="Search or scan a url">
+                <button>Scan Url</button>
+            </form>
+        </div>
+        <div class="search-form">
+            <form method="post" action="/Ip Analysis">
+                <input type="text" name="search" id="search" placeholder="Ip address">
+                <button>Search</button>
+            </form>
+        </div>
+        <div class="bottom-matter">
+            <p>By submitting data above, you are agreeing to our Terms of Service and Privacy Policy,
+                 and to the sharing of your Sample submission with the security community.
+                 Please do not submit any personal information; CyberTech Association is not responsible for the contents of your submission.</p>
+        </div>
+      
+        {% include "footer.html" %}
+
+    </section>
+  
+
+
+
+  
+      
+
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('.links p').click(function() {
+                $('.links p').removeClass('active'); // Remove active class from all paragraphs
+                $(this).addClass('active'); // Add active class to the clicked paragraph
+
+                // Show/hide forms based on the clicked link
+                if ($(this).attr('id') === 'file-link') {
+                    $('.file-form').show();
+                    $('.url-form, .search-form').hide();
+                } else if ($(this).attr('id') === 'url-link') {
+                    $('.url-form').show();
+                    $('.file-form, .search-form').hide();
+                } else if ($(this).attr('id') === 'search-link') {
+                    $('.search-form').show();
+                    $('.file-form, .url-form').hide();
+                }
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>
+

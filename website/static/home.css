@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300&family=Playfair+Display&family=Protest+Riot&display=swap');
+*{
+    border:0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    
+}
+section{
+    position:absolute;
+    left:0%;
+    top: 0%;
+    width:100%;
+    height: 109vh;
+    background-color:#FFF;
+}
+.header,.url-form,.search-form,.file-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.header h2 {
+    font-size: 50px;
+    color: rgb(44, 44, 96);
+    font-family: 'Protest Riot', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+.header p{
+    font-size:15px;
+    margin-top:-15px;
+    width:40%;
+    font-family: 'Nunito Sans', sans-serif;
+}
+.links{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin:0px 25%;
+    margin-top:25px;
+    padding:10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-bottom:1px solid rgba(0,0,0,0.1);
+}
+.links p:hover {
+    background-color: rgb(44, 44, 96);
+    color: white;
+}
+
+.links p.active {
+    background-color: #ddd;
+    color: blue; /* Set the background color for the active (clicked) link */
+}
+.links p{
+    font-size:17px;
+    margin:0px 80px;
+    font-family: 'Nunito Sans', sans-serif;
+}
+.file-form{
+    margin-top:5%;
+    display:block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form-group{
+    display:flex;
+    flex-direction: column;
+    justify-self:center;
+    align-items: center;
+}
+
+.form-group input{
+    visibility: visible;
+}
+.url-form{
+    margin-top:5%;
+    display:none;
+}
+.url-form form, .search-form form{
+    display:flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+}
+form input{
+    border: 1px solid rgb(44, 44, 96,0.7);
+    width:450px;
+    padding:8px 10px;
+    font-size:13px;
+}
+form button,.file-form button{
+    text-align: center;
+    cursor: pointer;
+    border:2px solid rgb(44, 44, 96);
+    color: rgb(44, 44, 96);
+    width: 150px;
+    padding:5px 15px;
+    font-size:14px;
+    border-radius:2px;
+    margin:2.5% 0px;
+}
+form button:hover{
+    background-color: rgb(44, 44, 96);
+    color: white;
+}
+::placeholder, ::-webkit-input-placeholder, ::-moz-placeholder{
+    color:rgb(44, 44, 96);
+    font-size:14px;
+}
+.search-form{
+    display:none;
+    margin-top:5%;
+}
+.bottom-matter{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.bottom-matter p{
+    font-size: 14px;
+    width:50%;
+    font-family: 'Nunito Sans', sans-serif;
+}
